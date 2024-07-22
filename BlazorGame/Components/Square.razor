@@ -1,0 +1,14 @@
+﻿<div class="square @SquareModels.Styles" @onmouseup="validateHit"/>
+
+@code {
+    [Parameter]
+    public SquareModels SquareModels { get; set; }
+
+    [Parameter]
+    public EventCallback mouseClick { get; set; }
+
+    private void validateHit()
+    {
+        mouseClick.InvokeAsync(new EventArgs());
+    }
+}

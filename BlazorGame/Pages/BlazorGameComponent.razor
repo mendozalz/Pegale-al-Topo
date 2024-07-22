@@ -1,0 +1,95 @@
+﻿@page "/"
+<h1>Blazor Game</h1>
+<div class="info">
+    <h2>Puntaje: @score</h2>
+    <h2>Vidas: @life</h2>
+    <h2>@mensaje</h2>        
+</div>
+
+<div class="board">
+    @foreach(var s in Squares)
+    {
+        <BlazorGame.Components.Square SquareModels="s" mouseClick="()=> TopoClick(s)" />
+    }
+</div>
+
+@code{
+        PeriodicTimer gameLoopTimer;
+        PeriodicTimer gameTimeTimer;
+    private void TopoClick(SquareModels s)
+    {
+
+        if (gameRun)
+        {
+            if(s.Id == hitPosition)
+            {
+                score += 1;
+            }
+        }
+    }
+
+    private Random random = new Random();
+    int? lastPosition = null;
+
+    private void nextTopo()
+    {
+        foreach(var i in Squares)
+        {
+            i.IsShow = false;
+        }
+
+        // Esto con el fin de evitar que el topo se quede en una sola posición estancado
+
+        int randomPosition;
+
+        do
+        {
+            randomPosition = random.Next(0, 9);
+        } while (lastPosition == randomPosition);
+
+        Squares[randomPosition].IsShow = true;
+
+        hitPosition = randomPosition;
+
+        lastPosition = randomPosition;
+
+        StateHasChanged();
+    }
+
+    private async Task GameLoopAsync(PeriodicTimer timer)
+    {
+        while (gameRun)
+        {
+            nextTopo();
+            await timer.WaitForNextTickAsync();
+        }
+    }
+
+    private async Task GameFinish(PeriodicTimer time)
+    {
+        while (gameRun)
+        {
+            life--;
+            if(life == 0)
+            {
+                mensaje = "Juego finalizado!!!";
+                gameRun = false;
+            }
+            StateHasChanged();
+            await time.WaitForNextTickAsync();
+        }
+
+    }
+
+    protected override void OnInitialized()
+    {
+        gameLoopTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(velocidadJuego));
+
+        _ = GameLoopAsync(gameLoopTimer);
+        
+        gameTimeTimer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+
+        _ = GameFinish(gameTimeTimer);
+    }
+    
+}
