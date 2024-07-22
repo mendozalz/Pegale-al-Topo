@@ -1,8 +1,8 @@
 ﻿@page "/"
-<h1>Blazor Game</h1>
+<h1>Pegale al Topo</h1>
 <div class="info">
     <h2>Puntaje: @score</h2>
-    <h2>Vidas: @life</h2>
+    <h2>Tiempo restante: @life</h2>
     <h2>@mensaje</h2>        
 </div>
 
@@ -11,6 +11,15 @@
     {
         <BlazorGame.Components.Square SquareModels="s" mouseClick="()=> TopoClick(s)" />
     }
+</div>
+<div class="small">
+<p>Mendozalz</p>
+</div>
+<div class="img-logos">
+    <img class="c_sharp" src="../img/c_shap.png" />
+    <img class="blazor" src="../img/Blazor.png" />
+    <img class="webassembly"  src="../img/WebAssembly.png" />
+    <img class="pwa"  src="../img/pwa.png" />
 </div>
 
 @code{

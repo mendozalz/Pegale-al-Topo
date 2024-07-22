@@ -5,7 +5,7 @@ namespace BlazorGame.Pages
     public partial class BlazorGameComponent
     {
         int score = 0;
-        int life = 10;
+        int life = 100;
         int hitPosition = 0;
         string mensaje = "";
         int velocidadJuego = 1000;
