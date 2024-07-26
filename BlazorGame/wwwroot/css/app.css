@@ -30,9 +30,27 @@ h2{
     margin-bottom: 10px
 }
 
-.info{
+.subtitle {
     display: flex;
     justify-content: space-between
+}
+
+.info {
+    text-align: center
+}
+
+.reiniciar {
+    text-align: center;
+    margin-bottom: 10px
+}
+
+.btnReiniciar {
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-size: 10px;
+    background: #866BE2;
+    border: none;
+    color: white
 }
 
 head{

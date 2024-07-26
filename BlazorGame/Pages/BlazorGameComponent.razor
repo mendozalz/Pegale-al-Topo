@@ -1,11 +1,19 @@
 ﻿@page "/"
 <h1>Pegale al Topo</h1>
-<div class="info">
+<div class="subtitle">
     <h2>Puntaje: @score</h2>
     <h2>Tiempo restante: @life</h2>
-    <h2>@mensaje</h2>        
+</div>
+<div class="info">
+    <h2>@mensaje</h2>
 </div>
 
+<div class="reiniciar">
+    @if (!gameRun)
+    {
+        <button class="btnReiniciar" @onclick="ReiniciarJuego">Reiniciar Juego</button>
+    }
+</div>
 <div class="board">
     @foreach(var s in Squares)
     {
